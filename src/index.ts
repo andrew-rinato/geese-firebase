@@ -4,6 +4,7 @@
 import * as functions from "firebase-functions";
 import {Configuration, OpenAIApi} from "openai";
 import * as admin from "firebase-admin";
+import strftime from 'strftime'
 
 // Init Firebase Admin
 admin.initializeApp();
@@ -36,15 +37,15 @@ export const generateImage = functions.pubsub
         const buffer = Buffer.from(base64, "base64");
         // Upload the buffer to the storage bucket with a name of the current
         // time in milliseconds
-        const name = `${Date.now()}.png`;
-        const file = bucket.file(`unseen/${name}`);
+        const name = strftime('%Y%m%d%H', new Date())+'.png';
+        const file = bucket.file(`cowboys/${name}`);
         await file.save(buffer,
             {
               metadata: {
                 contentType: "image/png",
               },
             });
-        return console.log(`uploaded ${name} to 'unseen' folder in bucket`);
+        return console.log(`uploaded ${name} to 'cowboys' folder in bucket`);
       }
       return null;
     });
