@@ -4,7 +4,7 @@
 import * as functions from "firebase-functions";
 import {Configuration, OpenAIApi} from "openai";
 import * as admin from "firebase-admin";
-import strftime from 'strftime'
+import strftime from 'strftime';
 
 // Init Firebase Admin
 admin.initializeApp();
